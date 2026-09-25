@@ -12,10 +12,8 @@ public class Sabot implements Iterable<Carte> {
 	private int nbCartes;
 	private int nbOperations = 0;
 	
-	public Sabot() {
-		JeuDeCartes jeu = new JeuDeCartes();
-		
-		this.sabot = jeu.donnerCartes();
+	public Sabot(Carte[] cartes) {
+		this.sabot = cartes;
 		this.nbCartes = sabot.length;
 	}
 	
@@ -33,6 +31,13 @@ public class Sabot implements Iterable<Carte> {
             }
         }
         throw new IllegalStateException("Capacité maximale atteinte : impossible d'ajouter la carte.");
+	}
+	
+	public Carte piocher() {
+		Iterateur iterateurCarte = new Iterateur();
+		Carte cartePioche = iterateurCarte.next();
+		iterateurCarte.remove();
+		return cartePioche;
 	}
 
 	@Override
