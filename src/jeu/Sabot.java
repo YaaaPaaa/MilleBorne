@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import cartes.Carte;
-import cartes.JeuDeCartes;
 
 public class Sabot implements Iterable<Carte> {
 	private Carte[] sabot;
@@ -57,6 +56,7 @@ public class Sabot implements Iterable<Carte> {
 
 		@Override
 		public Carte next() {
+			verificationConcurrence();
 			if(hasNext()) {
 				Carte carte = sabot[indiceIterateur];
 				indiceIterateur++;

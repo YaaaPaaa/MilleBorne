@@ -27,14 +27,24 @@ public class JeuDeCartes {
 		StringBuilder jeu = new StringBuilder();
 		
 		for (Configuration configuration : typesDeCartes) {
-			jeu.append(configuration.getNbExemplaires() + " " + configuration.getCarte() + "\n");
+			jeu.append(configuration.getNbExemplaires());
+			jeu.append(" ");
+			jeu.append(configuration.getCarte());
+			jeu.append("\n");
 		}
 		
 		return jeu.toString();
 	}
 	
 	public Carte[] donnerCartes() {
-		Carte[] tabDeCarte = new Carte[106]; //Normalement il y a 106 cartes
+		//D'abord on comtpe le nombre de cartes
+		int nbCartes = 0;
+		for (Configuration configuration : typesDeCartes) {
+			nbCartes += configuration.getNbExemplaires();
+		}
+		
+		//Puis on peut créer le tableau de carte qui contiendra les cartes repliqués
+		Carte[] tabDeCarte = new Carte[nbCartes];
 		int compteur = 0;
 		
 		
@@ -48,20 +58,35 @@ public class JeuDeCartes {
 		return tabDeCarte;
 	}
 	
+	public boolean checkCount() {
+		Carte[] tabDeCarte = donnerCartes();
+		
+		for (Configuration configuration : typesDeCartes) {
+			int nbCarteVoulu = configuration.getNbExemplaires();
+			int nbCarteCompte = 0;
+			for (int i = 0; i < tabDeCarte.length; i++) {
+				if(tabDeCarte[i].equals(configuration.getCarte())) nbCarteCompte++;
+			}
+			if(nbCarteCompte != nbCarteVoulu) return false;
+		}
+		
+		return true;
+	}
+	
 	private class Configuration {
 		private int nbExemplaires;
 		private Carte carte;
 		
-		public Configuration(Carte carte, int nbExemplaires) {
+		private Configuration(Carte carte, int nbExemplaires) {
 			this.nbExemplaires = nbExemplaires;
 			this.carte = carte;
 		}
 		
-		public Carte getCarte() {
+		private Carte getCarte() {
 			return carte;
 		}
 		
-		public int getNbExemplaires() {
+		private int getNbExemplaires() {
 			return nbExemplaires;
 		}
 	}
