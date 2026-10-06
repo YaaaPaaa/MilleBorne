@@ -1,4 +1,4 @@
-package testsFonctionnels;
+package testsfonctionnels;
 
 import java.util.Iterator;
 
@@ -10,13 +10,14 @@ import jeu.Sabot;
 public class TestSabot {
 	JeuDeCartes jeu = new JeuDeCartes();
 	Sabot sabot = new Sabot(jeu.donnerCartes());
+	String jePioche = "Je pioche ";
 
 	// 4.2.a
 	public void questionA() {
 
 		while (!sabot.estVide()) {
 			Carte carte = sabot.piocher();
-			System.out.println("Je pioche " + carte);
+			System.out.println(jePioche + carte);
 		}
 //		Console :
 //		Je pioche Accident
@@ -31,20 +32,20 @@ public class TestSabot {
 	// 4.2.b
 	public void questionB() {
 		for (Iterator<Carte> iterator = sabot.iterator(); iterator.hasNext();) {
-			System.out.println("Je pioche " + iterator.next());
+			System.out.println(jePioche + iterator.next());
 			iterator.remove();
 		}
+		System.out.println("\nLe sabot est vide : " + sabot.estVide());
 	}
 
 	// 4.2.c
 	public void questionC() {
 		Carte cartePiochee = sabot.piocher();
-		System.out.println("Je pioche " + cartePiochee);
+		System.out.println(jePioche + cartePiochee);
 		for (Iterator<Carte> iterator = sabot.iterator(); iterator.hasNext();) {
 			Carte carte = iterator.next();
-			System.out.println("Je pioche " + carte);
+			System.out.println(jePioche + carte);
 			iterator.remove();
-//			Carte cartePiochee = sabot.piocher();
 			sabot.ajouterCarte(new Botte(cartes.Type.ACCIDENT));
 		}
 		Iterator<Carte> iterator = sabot.iterator();
@@ -52,10 +53,17 @@ public class TestSabot {
 	}
 
 	public static void main(String[] args) {
-		TestSabot testPioche = new TestSabot();
-//		testPioche.questionA();
-		testPioche.questionB();
-//		testPioche.questionC();
+		System.out.println("Test A :");
+		TestSabot testA = new TestSabot();
+		testA.questionA();
+		
+		System.out.println("\nTest B :");
+		TestSabot testB = new TestSabot();
+		testB.questionB();
+		
+		System.out.println("\nTest C :");
+		TestSabot testC = new TestSabot();
+		testC.questionC();
 	}
 
 }

@@ -7,13 +7,13 @@ import java.util.NoSuchElementException;
 import cartes.Carte;
 
 public class Sabot implements Iterable<Carte> {
-	private Carte[] sabot;
+	private Carte[] tabCarte;
 	private int nbCartes;
 	private int nbOperations = 0;
 	
 	public Sabot(Carte[] cartes) {
-		this.sabot = cartes;
-		this.nbCartes = sabot.length;
+		this.tabCarte = cartes;
+		this.nbCartes = tabCarte.length;
 	}
 	
 	public boolean estVide() {
@@ -21,12 +21,12 @@ public class Sabot implements Iterable<Carte> {
 	}
 	
 	public Carte[] ajouterCarte(Carte carteAjoute) {
-		for (int i = 0; i < sabot.length; i++) {
-            if (sabot[i] == null) {
-            	sabot[i] = carteAjoute;
+		for (int i = 0; i < tabCarte.length; i++) {
+            if (tabCarte[i] == null) {
+            	tabCarte[i] = carteAjoute;
                 nbCartes++;
                 nbOperations++;
-                return sabot;
+                return tabCarte;
             }
         }
         throw new IllegalStateException("Capacité maximale atteinte : impossible d'ajouter la carte.");
@@ -58,7 +58,7 @@ public class Sabot implements Iterable<Carte> {
 		public Carte next() {
 			verificationConcurrence();
 			if(hasNext()) {
-				Carte carte = sabot[indiceIterateur];
+				Carte carte = tabCarte[indiceIterateur];
 				indiceIterateur++;
 				nextEffectue = true;
 				return carte;
@@ -71,7 +71,7 @@ public class Sabot implements Iterable<Carte> {
 			if(nbCartes < 1 || !nextEffectue) throw new IllegalStateException();
 			
 			for (int i = indiceIterateur - 1; i < nbCartes - 1; i++) {
-				sabot[i] = sabot[i + 1];
+				tabCarte[i] = tabCarte[i + 1];
 			}
 			nextEffectue = false;
 			indiceIterateur--;
@@ -82,8 +82,9 @@ public class Sabot implements Iterable<Carte> {
 		}
 		
 		private void verificationConcurrence(){
-			if (nbOperations != nbOperationReference)
-			throw new ConcurrentModificationException();
+			if (nbOperations != nbOperationReference) {
+				throw new ConcurrentModificationException();
+			}
 		}
 	}
 }

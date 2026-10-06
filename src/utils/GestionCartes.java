@@ -1,19 +1,19 @@
 package utils;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Random;
 
-import cartes.Carte;
-
 public class GestionCartes {
+	static Random random = new Random();
+	
+	private GestionCartes() {
+	}
+	
 	public static <T> T extraire(List<T> liste) {
 		T element;
-		Random random = new Random();
         int randomElement = random.nextInt(liste.size());
         element = liste.get(randomElement);
         liste.remove(randomElement);
@@ -29,7 +29,6 @@ public class GestionCartes {
 		}
 		
 		T element;
-		Random random = new Random();
         int randomInt = random.nextInt(compteur);
         int randomElement = compteur - randomInt;
         
@@ -44,7 +43,7 @@ public class GestionCartes {
 	}
 	
 	public static <T> List<T> melanger(List<T> liste) {
-		List<T> nouvelleListe = new ArrayList<T>();
+		List<T> nouvelleListe = new ArrayList<>();
 		
 		while (!liste.isEmpty()) {
 			nouvelleListe.add(extraire(liste));
@@ -67,13 +66,13 @@ public class GestionCartes {
 	}
 	
 	public static <T> List<T> rassembler(List<T> liste) {
-		List<T> nouvelleListe = new ArrayList<T>();
+		List<T> nouvelleListe = new ArrayList<>();
 		
 		while (!liste.isEmpty()) {
 			T element = liste.remove(0);
 			nouvelleListe.add(element);
 			for (ListIterator<T> iterator = liste.listIterator(); iterator.hasNext();) {
-				T t = (T) iterator.next();
+				T t = iterator.next();
 				if(t.equals(element)) {
 					nouvelleListe.add(t);
 					iterator.remove();

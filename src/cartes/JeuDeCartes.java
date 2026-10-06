@@ -37,26 +37,26 @@ public class JeuDeCartes {
 	}
 	
 	public Carte[] donnerCartes() {
-		//D'abord on comtpe le nombre de cartes
-		int nbCartes = 0;
-		for (Configuration configuration : typesDeCartes) {
-			nbCartes += configuration.getNbExemplaires();
-		}
-		
-		//Puis on peut créer le tableau de carte qui contiendra les cartes repliqués
-		Carte[] tabDeCarte = new Carte[nbCartes];
-		int compteur = 0;
-		
-		
-		for (Configuration configuration : typesDeCartes) {
-			for (int i = 0; i < configuration.nbExemplaires && compteur < tabDeCarte.length; i++) {
-				tabDeCarte[compteur] = configuration.getCarte();
-				compteur++;
-			}
-		}
-		
-		return tabDeCarte;
+	    int nbCartes = 0;
+
+	    for (Configuration configuration : typesDeCartes) {
+	        nbCartes += configuration.getNbExemplaires();
+	    }
+
+	    Carte[] tabDeCarte = new Carte[nbCartes];
+
+	    int compteur = 0;
+
+	    for (Configuration configuration : typesDeCartes) {
+	        for (int i = 0; i < configuration.getNbExemplaires(); i++) {
+	            tabDeCarte[compteur] = configuration.getCarte();
+	            compteur++;
+	        }
+	    }
+
+	    return tabDeCarte;
 	}
+
 	
 	public boolean checkCount() {
 		Carte[] tabDeCarte = donnerCartes();
@@ -65,7 +65,9 @@ public class JeuDeCartes {
 			int nbCarteVoulu = configuration.getNbExemplaires();
 			int nbCarteCompte = 0;
 			for (int i = 0; i < tabDeCarte.length; i++) {
-				if(tabDeCarte[i].equals(configuration.getCarte())) nbCarteCompte++;
+				if (tabDeCarte[i] != null && tabDeCarte[i].equals(configuration.getCarte())) {
+				    nbCarteCompte++;
+				}
 			}
 			if(nbCarteCompte != nbCarteVoulu) return false;
 		}
@@ -73,7 +75,9 @@ public class JeuDeCartes {
 		return true;
 	}
 	
-	private class Configuration {
+	private static class Configuration {
+		/*Avec static, on indique que Configuration appartient à la classe JeuDeCartes elle-même, 
+		et non à une instance particulière de JeuDeCartes*/
 		private int nbExemplaires;
 		private Carte carte;
 		

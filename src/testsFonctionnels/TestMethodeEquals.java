@@ -1,4 +1,4 @@
-package testsFonctionnels;
+package testsfonctionnels;
 
 import cartes.Attaque;
 import cartes.Bataille;
@@ -33,5 +33,7 @@ public class TestMethodeEquals {
 		System.out.println("Deux cartes de 25km sont identiques ? " + testPioche.questionA());
 		System.out.println("Deux cartes de feux rouge sont identiques ? " + testPioche.questionB());
 		System.out.println("La carte feu rouge et la carte feu vert sont identiques ? " + testPioche.questionC());
+		
+		System.out.println("\nRésultat attendu : true, true, false");
 	}
 }
