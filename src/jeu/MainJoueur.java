@@ -1,10 +1,11 @@
 package jeu;
 
+import java.util.Iterator;
 import java.util.List;
 
 import cartes.Carte;
 
-public class MainJoueur {
+public class MainJoueur implements Iterable<Carte>{
 	private List<Carte> mainDuJoueur;
 	
 	
@@ -22,5 +23,21 @@ public class MainJoueur {
 		}
 		
 		throw new IllegalStateException();
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder chaine = new StringBuilder();
+		chaine.append("La main du joueur est :");
+		for (Iterator<Carte> iterator = mainDuJoueur.iterator(); iterator.hasNext();) {
+			Carte carte = iterator.next();
+			chaine.append(carte.toString());
+		}
+		return chaine.toString();
+	}
+
+	@Override
+	public Iterator<Carte> iterator() {
+		return mainDuJoueur.iterator();
 	}
 }

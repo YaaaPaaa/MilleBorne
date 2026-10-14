@@ -1,12 +1,16 @@
 package jeu;
 
+import cartes.Carte;
+
 public class Joueur {
-	String nom;
-	ZoneDeJeu zoneJeu;
+	private String nom;
+	private ZoneDeJeu zoneJeu;
+	private MainJoueur main;
 	
-	public Joueur(String nom, ZoneDeJeu zoneJeu) {
+	public Joueur(String nom, ZoneDeJeu zoneJeu, MainJoueur main) {
 		this.nom = nom;
 		this.zoneJeu = zoneJeu;
+		this.main = main;
 	}
 	
 	@Override
@@ -26,4 +30,35 @@ public class Joueur {
 	public String toString() {
 		return nom;
 	}
+	
+	public void donner(Carte carte) {
+		main.prendre(carte);
+	}
+	
+	public Carte prendreCarte(Sabot sabot) {
+		Carte carte = null;
+		if(!sabot.estVide()) {
+			carte = sabot.piocher();
+			donner(carte);
+		}
+		return carte;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
