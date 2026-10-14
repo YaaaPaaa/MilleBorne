@@ -9,7 +9,9 @@ import java.util.Random;
 public class GestionCartes {
 	static Random random = new Random();
 	
-	private GestionCartes() {
+	 private GestionCartes() {
+		 /* This utility class should not be instantiated */
+		 throw new UnsupportedOperationException();
 	}
 	
 	public static <T> T extraire(List<T> liste) {
@@ -21,7 +23,7 @@ public class GestionCartes {
 	}
 	
 	//Pareil que extraire mais on exploite un ListIterator
-	public static <T> T extraire2(ListIterator<T> liste) {
+	public static <T> T extraire2(ListIterator<T> liste) {//Grâce au ListIterator on place l'itérateur ou on veut
 		int compteur = 0;
 		while(liste.hasNext()) {
 			liste.next();
@@ -83,7 +85,7 @@ public class GestionCartes {
 		return nouvelleListe;
 	}
 
-	public static <T> boolean verifierRassemblement(List<T> liste) {
+	public static <T> boolean verifierRassemblement(List<T> liste) {//Déplacement complexité 3 max (while if -> while if) -> faire une méthode privée
 		ListIterator<T> iterateur1 = liste.listIterator();
 	    T precedent = iterateur1.next();
 	    while (iterateur1.hasNext()) {
@@ -102,7 +104,6 @@ public class GestionCartes {
 	    }
 	    return true;
 	}
-	
 	
 	
 	

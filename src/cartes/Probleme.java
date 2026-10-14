@@ -2,19 +2,6 @@ package cartes;
 
 public abstract class Probleme extends Carte {
 	private Type type;
-	
-	@Override
-	public boolean equals(Object obj) {
-		if(obj instanceof Probleme probleme) {
-			return toString().equals(probleme.toString());
-		}
-		return false;
-	}
-	
-	@Override
-	public int hashCode() {
-		return super.hashCode();
-	}
 
 	protected Probleme(Type type) {
 		this.type = type;
@@ -22,5 +9,20 @@ public abstract class Probleme extends Carte {
 
 	public Type getType() {
 		return type;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (!super.equals(obj)) {
+	        return false;
+	    }
+
+	    Probleme probleme = (Probleme) obj;
+	    return getType().equals(probleme.getType());
+	}
+	
+	@Override
+	public int hashCode() {
+		return 31 * (getType().hashCode() + super.hashCode());
 	}
 }

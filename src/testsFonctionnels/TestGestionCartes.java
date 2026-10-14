@@ -27,5 +27,4 @@ public class TestGestionCartes {
 		System.out.println("liste rassemble sans erreur ? " + GestionCartes.verifierRassemblement(listeCartes));
 
 	}
-
 }
