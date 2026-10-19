@@ -23,25 +23,24 @@ public class GestionCartes {
 	}
 	
 	//Pareil que extraire mais on exploite un ListIterator
-	public static <T> T extraire2(ListIterator<T> liste) {//TODO Grâce au ListIterator on place l'itérateur ou on veut
-		int compteur = 0;
-		while(liste.hasNext()) {
-			liste.next();
-			compteur++;
-		}
-		
-		T element;
-        int randomInt = random.nextInt(compteur);
-        int randomElement = compteur - randomInt;
-        
-        while(0 < randomElement) {
-        	liste.previous();
-        	randomElement--;
-        }
-        
-        element = liste.next();
-        liste.remove();
-		return element;
+	public static <T> T extraire2(ListIterator<T> liste) {
+	    int compteur = 0;
+
+	    while (liste.hasNext()) {
+	        liste.next();
+	        compteur++;
+	    }
+
+	    int randomInt = random.nextInt(compteur);
+
+	    for (int i = 0; i < compteur - randomInt - 1; i++) {
+	        liste.previous();
+	    }
+
+	    T element = liste.next();
+	    liste.remove();
+
+	    return element;
 	}
 	
 	public static <T> List<T> melanger(List<T> liste) {
