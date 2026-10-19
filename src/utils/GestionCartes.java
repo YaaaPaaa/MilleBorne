@@ -83,8 +83,18 @@ public class GestionCartes {
 		
 		return nouvelleListe;
 	}
+	
+	private static <T> boolean verifierDuplication(ListIterator<T> iterateur2, T precedent){
+		while (iterateur2.hasNext()) {
+            T suivant = iterateur2.next();
+            if (suivant.equals(precedent)) {
+                return false;
+            }
+        }
+		return true;
+	}
 
-	public static <T> boolean verifierRassemblement(List<T> liste) {//TODO Déplacement complexité 3 max (while if -> while if) -> faire une méthode privée
+	public static <T> boolean verifierRassemblement(List<T> liste) {
 		ListIterator<T> iterateur1 = liste.listIterator();
 	    T precedent = iterateur1.next();
 	    while (iterateur1.hasNext()) {
@@ -92,11 +102,8 @@ public class GestionCartes {
 
 	        if (!courant.equals(precedent)) {
 	            ListIterator<T> iterateur2 = liste.listIterator(iterateur1.nextIndex());
-	            while (iterateur2.hasNext()) {
-	                T suivant = iterateur2.next();
-	                if (suivant.equals(precedent)) {
-	                    return false;
-	                }
+	            if(!verifierDuplication(iterateur2, precedent)) {
+	            	return false;
 	            }
 	            precedent = courant;
 	        }

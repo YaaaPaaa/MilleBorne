@@ -51,6 +51,10 @@ public class Joueur {
 	public void deposer(Carte c) {
 		zoneJeu.deposer(c);
 	}
+	
+	public boolean estDepotAutorise(Carte carte) {
+		return zoneJeu.estDepotAutorise(carte);
+	}
 }
 
 
