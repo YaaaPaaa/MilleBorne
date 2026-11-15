@@ -25,6 +25,7 @@ public class ZoneDeJeu {
 		this.pileLimite = new ArrayList<>();
 		this.pileBataille = new ArrayList<>();
 		this.collecBorne = new ArrayList<>();
+		this.ensembleBottes = new HashSet<>();
 	}
 	
 	public int donnerLimitationVitesse() {
@@ -66,8 +67,10 @@ public class ZoneDeJeu {
 	
 	//Fonction auxiliaire permettant de savoir si il existe une botte du même type que l'argument donné
 	private boolean estBotteTypeEquivalent(Type type) {
-		for (Botte botte : ensembleBottes) {
-			if(botte.getType().equals(type)) return true;
+		if(!ensembleBottes.isEmpty()) {
+			for (Botte botte : ensembleBottes) {
+				if(botte.getType().equals(type)) return true;
+			}
 		}
 		return false;
 	}
@@ -112,6 +115,8 @@ public class ZoneDeJeu {
 	}
 	
 	private boolean estDepotLimiteAutorise(Limite limite) {
+		if(estPrioritaire()) return false;
+		
 		if(limite instanceof DebutLimite){
 			return pileLimite.isEmpty()
 					|| pileLimite.getLast() instanceof FinLimite;
@@ -121,6 +126,8 @@ public class ZoneDeJeu {
 	}
 	
 	private boolean estDepotBatailleAutorise(Bataille bataille) {
+		if(estBotteTypeEquivalent(bataille.getType())) return false;
+		
 		if(bataille instanceof Attaque) {
 			return peutAvancer();
 		}
@@ -139,6 +146,7 @@ public class ZoneDeJeu {
 		if(carte instanceof Borne borne) return estDepotBorneAutorise(borne);
 		else if(carte instanceof Limite limite) return estDepotLimiteAutorise(limite);
 		else if(carte instanceof Bataille bataille) return estDepotBatailleAutorise(bataille);
+		else if(carte instanceof Botte) return true;
 		return estDepotFeuVertAutorise();
 	}
 
