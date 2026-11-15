@@ -43,6 +43,12 @@ public class Jeu {
 			}
 		}
 	}
+	
+	
+	public void jouerTour(Joueur joueur) {
+		System.out.println(joueur.toString() + " a pris la carte " + joueur.prendreCarte(sabot));
+		//TODO Faire le coup
+	}
 }
 
 

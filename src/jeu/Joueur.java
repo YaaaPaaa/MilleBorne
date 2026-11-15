@@ -2,17 +2,21 @@ package jeu;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import cartes.Botte;
 import cartes.Carte;
+import cartes.DebutLimite;
+import cartes.Limite;
 
 public class Joueur {
 	private String nom;
 	private ZoneDeJeu zoneJeu;
 	private MainJoueur main;
 	
-	static Random random = new Random();
+	private static Random random = new Random();
 	
 	public Joueur(String nom, ZoneDeJeu zoneJeu, MainJoueur main) {
 		this.nom = nom;
@@ -116,11 +120,24 @@ public class Joueur {
 		return coup;
 	}
 	
-//	Si des coups sont possibles, la méthode renvoie l’un de ces coups choisi de manière aléatoire.
-	
-//	Sinon la méthode renvoie l’un des coups de défausse choisi de manière aléatoire. 
-	
-//	Attention de ne pas dupliquer les traitements (utiliser une méthode privée).
+	public String afficherEtatJoueur() {
+		StringBuilder affichageEtat = new StringBuilder();
+		
+		affichageEtat.append("L'ensemble des bottes :");
+		for(Botte botte : zoneJeu.getBotte()) {
+			affichageEtat.append("- ");
+			affichageEtat.append(botte.toString());
+		}
+		affichageEtat.append("\n");
+		
+		List<Limite> pileLimite = zoneJeu.getLimite();
+		affichageEtat.append(pileLimite.getLast() instanceof DebutLimite);
+		affichageEtat.append("\n");
+		 
+		 affichageEtat.append(main.toString());
+		
+		return affichageEtat.toString();
+	}
 }
 
 

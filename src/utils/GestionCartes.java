@@ -7,7 +7,7 @@ import java.util.ListIterator;
 import java.util.Random;
 
 public class GestionCartes {
-	static Random random = new Random();
+	private static Random random = new Random();
 	
 	 private GestionCartes() {
 		 /* This utility class should not be instantiated */

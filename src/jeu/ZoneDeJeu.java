@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import cartes.Limite;
 import cartes.Parade;
 import cartes.Type;
@@ -26,6 +28,14 @@ public class ZoneDeJeu {
 		this.pileBataille = new ArrayList<>();
 		this.collecBorne = new ArrayList<>();
 		this.ensembleBottes = new HashSet<>();
+	}
+	
+	public Set<Botte> getBotte(){
+		return ensembleBottes;
+	}
+	
+	public List<Limite> getLimite() {
+		return pileLimite;
 	}
 	
 	public int donnerLimitationVitesse() {
