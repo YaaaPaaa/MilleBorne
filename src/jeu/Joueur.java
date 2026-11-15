@@ -1,5 +1,8 @@
 package jeu;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import cartes.Carte;
 
 public class Joueur {
@@ -54,6 +57,30 @@ public class Joueur {
 	
 	public boolean estDepotAutorise(Carte carte) {
 		return zoneJeu.estDepotAutorise(carte);
+	}
+	
+	public Set<Coup> coupsPossible(Set<Joueur> participants){
+		Set<Coup> ensembleCoupsValide = new HashSet<>();
+		
+		for (Joueur cible : participants) {
+			for (Carte carte : main) {
+				Coup coup = new Coup(this, carte, cible);
+	            if (coup.estValide()) ensembleCoupsValide.add(coup);
+			}
+		}
+		
+		return ensembleCoupsValide;
+	}
+	
+	public Set<Coup> coupsDefausse() {
+	    Set<Coup> ensembleDefausses = new HashSet<>();
+
+	    for (Carte carte : main) {
+	        Coup coup = new Coup(this, carte, null);
+	        ensembleDefausses.add(coup);
+	    }
+
+	    return ensembleDefausses;
 	}
 }
 
