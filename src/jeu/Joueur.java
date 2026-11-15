@@ -1,6 +1,8 @@
 package jeu;
 
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Random;
 import java.util.Set;
 
 import cartes.Carte;
@@ -9,6 +11,8 @@ public class Joueur {
 	private String nom;
 	private ZoneDeJeu zoneJeu;
 	private MainJoueur main;
+	
+	static Random random = new Random();
 	
 	public Joueur(String nom, ZoneDeJeu zoneJeu, MainJoueur main) {
 		this.nom = nom;
@@ -82,6 +86,41 @@ public class Joueur {
 
 	    return ensembleDefausses;
 	}
+	
+	public void retirerDeLaMain(Carte carte) {
+		main.jouer(carte);
+	}
+	
+	private Coup coupAleatoire(Set<Coup> ensembleCoup) {
+		Coup coup = null;
+        int randomElement = random.nextInt(ensembleCoup.size());
+        Iterator<Coup> iterator = ensembleCoup.iterator();
+        
+        for (int i = 0; i < randomElement; i++) {
+        	coup =  iterator.next();
+		}
+			
+        ensembleCoup.remove(coup);
+		return coup;
+	}
+	
+	public Coup choisirCoup(Set<Joueur> participants) {
+		Coup coup = null;
+		
+		Set<Coup> ensembleCoupsValide = coupsPossible(participants);
+		if(!ensembleCoupsValide.isEmpty()) coup = coupAleatoire(ensembleCoupsValide);
+		else {
+			coup = coupAleatoire(coupsDefausse());
+		}
+		
+		return coup;
+	}
+	
+//	Si des coups sont possibles, la méthode renvoie l’un de ces coups choisi de manière aléatoire.
+	
+//	Sinon la méthode renvoie l’un des coups de défausse choisi de manière aléatoire. 
+	
+//	Attention de ne pas dupliquer les traitements (utiliser une méthode privée).
 }
 
 
