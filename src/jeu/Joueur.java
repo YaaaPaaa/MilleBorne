@@ -42,6 +42,10 @@ public class Joueur {
 		return nom;
 	}
 	
+	public MainJoueur getMain() {
+		return main;
+	}
+	
 	public void donner(Carte carte) {
 		main.prendre(carte);
 	}

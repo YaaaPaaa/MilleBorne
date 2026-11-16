@@ -2,6 +2,7 @@ package jeu;
 
 import java.util.List;
 import java.util.Set;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -46,8 +47,27 @@ public class Jeu {
 	
 	
 	public void jouerTour(Joueur joueur) {
-		System.out.println(joueur.toString() + " a pris la carte " + joueur.prendreCarte(sabot));
-		//TODO Faire le coup
+		Carte carteJouee = joueur.prendreCarte(sabot);
+		Coup coup = joueur.choisirCoup(joueurs);
+		Joueur joueurCible = coup.getJoueurCible();
+		
+		System.out.println("Le joueur " + joueur.toString() + " a pioche " + carteJouee.toString());
+		System.out.println(joueur.getMain().toString());
+		
+		joueur.retirerDeLaMain(carteJouee);
+
+		System.out.print(coup.getJoueurCible().toString() + " depose la carte " + coup.getCarteJouee());
+		if(joueurCible == null) {
+			System.out.println(" dans la défausse");
+			sabot.ajouterCarte(carteJouee);
+		} else {
+			if(joueurCible == joueur) {
+				System.out.println(" dans sa zone de jeu");
+			} else {
+				System.out.println(" dans la zone de jeu de " + joueurCible);
+			}
+			joueurCible.deposer(carteJouee);
+		}		
 	}
 }
 

@@ -18,6 +18,18 @@ public class Coup {
 		this.joueurCible = joueurCible; //Peut être null
 	}
 	
+	public Joueur getJoueurCourant() {
+		return joueurCourant;
+	}
+	
+	public Carte getCarteJouee() {
+		return carteJouee;
+	}
+
+	public Joueur getJoueurCible() {
+		return joueurCible;
+	}
+	
 	public boolean estValide() {
 		if (joueurCible == null) 
 	    	return true;
