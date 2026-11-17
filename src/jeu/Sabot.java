@@ -13,7 +13,7 @@ public class Sabot implements Iterable<Carte> {
 	
 	public Sabot(Carte[] cartes) {
 		this.tabCarte = cartes;
-		this.nbCartes = tabCarte.length;
+		this.nbCartes = cartes.length;
 	}
 	
 	public boolean estVide() {

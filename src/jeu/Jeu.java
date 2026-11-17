@@ -5,6 +5,7 @@ import java.util.Set;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 
 import cartes.Carte;
 import cartes.JeuDeCartes;
@@ -12,7 +13,7 @@ import utils.GestionCartes;
 
 public class Jeu {
 	private Sabot sabot;
-	private Set<Joueur> joueurs;
+	private Set<Joueur> joueurs = new HashSet<>();
 	
 	public Jeu() {
 		// a. Récupère le tableau de cartes de la classe JeuDeCartes et les mélange, après transformation en liste listeCartes (Collections.addAll)
@@ -20,7 +21,7 @@ public class Jeu {
         Carte[] tableauCartes = jeuDeCartes.donnerCartes();
         List<Carte> listeCartes = new ArrayList<>();
         Collections.addAll(listeCartes, tableauCartes);
-        GestionCartes.melanger(listeCartes);
+        listeCartes = GestionCartes.melanger(listeCartes);
         
         // b. Crée le sabot avec en paramètre d’entrée le tableau des cartes mélangé, après transformation en tableau (listeCartes.toArray).
         Carte[] cartesMelangees = listeCartes.toArray(new Carte[0]);
@@ -56,15 +57,15 @@ public class Jeu {
 		
 		joueur.retirerDeLaMain(carteJouee);
 
-		System.out.print(coup.getJoueurCible().toString() + " depose la carte " + coup.getCarteJouee());
+		System.out.print(coup.getJoueurCourant().toString() + " depose la carte " + coup.getCarteJouee());
 		if(joueurCible == null) {
-			System.out.println(" dans la défausse");
+			System.out.println(" dans la défausse\n");
 			sabot.ajouterCarte(carteJouee);
 		} else {
-			if(joueurCible == joueur) {
-				System.out.println(" dans sa zone de jeu");
+			if(joueurCible.equals(joueur)) {
+				System.out.println(" dans sa zone de jeu\n");
 			} else {
-				System.out.println(" dans la zone de jeu de " + joueurCible);
+				System.out.println(" dans la zone de jeu de " + joueurCible + "\n");
 			}
 			joueurCible.deposer(carteJouee);
 		}		

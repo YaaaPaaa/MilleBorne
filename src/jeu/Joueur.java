@@ -27,7 +27,7 @@ public class Joueur {
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof Joueur joueur) {
-			return nom.equals(joueur.nom);
+			return nom.equals(joueur.toString());
 		}
 		return false;
 	}
@@ -52,10 +52,14 @@ public class Joueur {
 	
 	public Carte prendreCarte(Sabot sabot) {
 		Carte carte = null;
+		
 		if(!sabot.estVide()) {
 			carte = sabot.piocher();
 			donner(carte);
+		} else {
+			throw new IllegalStateException();
 		}
+		
 		return carte;
 	}
 	
@@ -77,7 +81,9 @@ public class Joueur {
 		for (Joueur cible : participants) {
 			for (Carte carte : main) {
 				Coup coup = new Coup(this, carte, cible);
-	            if (coup.estValide()) ensembleCoupsValide.add(coup);
+	            if (coup.estValide()) {
+	            	ensembleCoupsValide.add(coup);
+	            }
 			}
 		}
 		
@@ -104,7 +110,8 @@ public class Joueur {
         int randomElement = random.nextInt(ensembleCoup.size());
         Iterator<Coup> iterator = ensembleCoup.iterator();
         
-        for (int i = 0; i < randomElement; i++) {
+        coup =  iterator.next();
+        for (int i = 1; i < randomElement; i++) {
         	coup =  iterator.next();
 		}
 			
@@ -113,15 +120,13 @@ public class Joueur {
 	}
 	
 	public Coup choisirCoup(Set<Joueur> participants) {
-		Coup coup = null;
-		
 		Set<Coup> ensembleCoupsValide = coupsPossible(participants);
-		if(!ensembleCoupsValide.isEmpty()) coup = coupAleatoire(ensembleCoupsValide);
-		else {
-			coup = coupAleatoire(coupsDefausse());
+		
+		if(ensembleCoupsValide.isEmpty()) {
+			ensembleCoupsValide = coupsDefausse();
 		}
 		
-		return coup;
+		return coupAleatoire(ensembleCoupsValide);
 	}
 	
 	public String afficherEtatJoueur() {
